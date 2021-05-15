@@ -4,20 +4,21 @@
 #include "string.h"
 #include <stddef.h>
 #include "test.h"
+
 /**
  * Insert n elements in array[m]. array[hash(element)] = 1, k times
  * k = ln2*m/n
- * m = n*lnp/ln2^2
+ * m = -(n*lnp/ln2^2)
  */
+
 
 int count_lines(char *filename) {
     // count the number of lines in the file
     FILE *fp = fopen(filename, "r");
-    int ch;
+    int ch = 0;
     int lines = 0;
     if (fp == NULL)
         return 0;
-
     lines++;
     while ((ch = fgetc(fp)) != EOF) {
         if (ch == '\n')
@@ -27,8 +28,9 @@ int count_lines(char *filename) {
     return lines;
 }
 
+
 int main(int argc, char *argv[]) {
-    //run tests
+    //run tests or print help
     if (argc == 2) {
         if (strcmp(argv[1], "-t") == 0) {
             run_tests();
@@ -44,8 +46,8 @@ int main(int argc, char *argv[]) {
         double probability;
         sscanf(argv[2], "%lf", &probability);
         //check correct
-        if (probability < 0) {
-            printf("Error. Probability must be positive number");
+        if (probability < 0 || probability > 1) {
+            printf("Error. Probability must be positive number and less then one");
         }
         //open file
         FILE *fp;
@@ -62,7 +64,7 @@ int main(int argc, char *argv[]) {
         //read file
         while (!feof(fp)) {
             fscanf(fp, "%127s", line);
-            names[index] = (char *) malloc(sizeof(line) * strlen(line));
+            names[index] = (char *) malloc(strlen(line));
             strcpy(names[index], strdup(line));
             index++;
         }
@@ -70,13 +72,16 @@ int main(int argc, char *argv[]) {
 
         //init bloom filter
         bloom_filter_t *bf = bloom_filter_create(words, probability);
+        //fill dictionary
         for (int i = 0; i < words; i++) {
             insert(bf->hash_number, names[i], bf->dictionary, bf->length);
         }
         //check contains
         bool exist = contains(bf->hash_number, argv[3], bf->dictionary, bf->length);
+
         printf("%s", exist ? "Probably contains" : "false");
         free(names);
+        free(bf->dictionary);
         free(bf);
 
     } else {
@@ -84,4 +89,6 @@ int main(int argc, char *argv[]) {
     }
 
     return 0;
+
+
 }
