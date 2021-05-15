@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
         while (!feof(fp)) {
             fscanf(fp, "%127s", line);
             names[index] = (char *) malloc(strlen(line));
-            strcpy(names[index], strdup(line));
+            names[index] = strdup(line);
             index++;
         }
         fclose(fp);
