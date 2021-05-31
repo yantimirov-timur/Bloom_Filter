@@ -4,7 +4,7 @@
 
 #ifndef BLOOM_FILTER_EXEC_TEST_H
 #define BLOOM_FILTER_EXEC_TEST_H
-
+#include <stdbool.h>
 
 void assert_true(bool result);
 
