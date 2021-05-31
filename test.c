@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 void assert_true(bool result) {
-    if (result == 1) {
+    if (result == true) {
         printf("Test passed");
     } else {
         printf("Test failed");
@@ -13,16 +13,13 @@ void assert_true(bool result) {
 }
 
 void test1() {
-    int num_elements = 6;
+    int num_elements = 5;
     double prob = 0.1;
+    char *test_words[5] = {"abc", "bcd", "cde", "def", "fgi"};
     bloom_filter_t *bf = bloom_filter_create(num_elements, prob);
-
-    insert(bf->hash_number, "abc", bf->dictionary, bf->length);
-    insert(bf->hash_number, "bcd", bf->dictionary, bf->length);
-    insert(bf->hash_number, "cde", bf->dictionary, bf->length);
-    insert(bf->hash_number, "def", bf->dictionary, bf->length);
-    insert(bf->hash_number, "fgi", bf->dictionary, bf->length);
-
+    for (int i = 0; i < num_elements; i++) {
+        insert(bf->hash_number, test_words[i], bf->dictionary, bf->length);
+    }
     bool exist = contains(bf->hash_number, "w", bf->dictionary, bf->length);
     bool exist1 = contains(bf->hash_number, "abc", bf->dictionary, bf->length);
     assert_true(!exist);
@@ -32,16 +29,13 @@ void test1() {
 }
 
 void test2() {
-    int num_elements = 6;
+    int num_elements = 5;
     double prob = 0.1;
+    char *test_numbers[5] = {"1", "2", "3", "4", "5"};
     bloom_filter_t *bf = bloom_filter_create(num_elements, prob);
-
-    insert(bf->hash_number, "1", bf->dictionary, bf->length);
-    insert(bf->hash_number, "2", bf->dictionary, bf->length);
-    insert(bf->hash_number, "3", bf->dictionary, bf->length);
-    insert(bf->hash_number, "4", bf->dictionary, bf->length);
-    insert(bf->hash_number, "5", bf->dictionary, bf->length);
-
+    for (int i = 0; i < num_elements; i++) {
+        insert(bf->hash_number, test_numbers[i], bf->dictionary, bf->length);
+    }
     bool exist = contains(bf->hash_number, "9", bf->dictionary, bf->length);
     bool exist1 = contains(bf->hash_number, "2", bf->dictionary, bf->length);
     printf("\n");

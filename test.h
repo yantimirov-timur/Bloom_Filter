@@ -4,8 +4,15 @@
 
 #ifndef BLOOM_FILTER_EXEC_TEST_H
 #define BLOOM_FILTER_EXEC_TEST_H
+
+
 void assert_true(bool result);
+
 void run_tests();
+
 void test1();
+
 void test2();
+
+
 #endif //BLOOM_FILTER_EXEC_TEST_H
