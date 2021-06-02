@@ -1,8 +1,5 @@
 #include <stdio.h>
 #include "bloom_filter.h"
-#include <stdlib.h>
-#include "string.h"
-#include <stddef.h>
 #include "test.h"
 
 
@@ -79,7 +76,7 @@ int main(int argc, char *argv[]) {
             insert(bf->hash_number, names[i], bf->dictionary, bf->length);
         }
         //check contains
-        bool exist = contains(bf->hash_number, argv[3], bf->dictionary, bf->length);
+        int exist = contains(bf->hash_number, argv[3], bf->dictionary, bf->length);
         printf("%s", exist ? "Probably contains" : "false");
         free(names);
         free(bf->dictionary);

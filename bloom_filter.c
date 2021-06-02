@@ -3,14 +3,15 @@
 //
 #include "bloom_filter.h"
 #include <math.h>
+
 #define int_t sizeof(int) * 8 // for bits of type int in different systems
 
 bloom_filter_t *bloom_filter_create(int number_elements, double prob_error) {
-    size_t bloom_filter_size = number_elements * log(prob_error) / (log(2) * log(2)) * -1;
+    long bloom_filter_size = (long) ((double) (number_elements) * log(prob_error) / (log(2) * log(2)) * -1);
     bloom_filter_t *bloomFilter = malloc(sizeof(bloom_filter_t));
-    bloomFilter->dictionary = calloc(bloom_filter_size, sizeof(int));
+    bloomFilter->dictionary = calloc((size_t) bloom_filter_size, sizeof(int));
     bloomFilter->length = bloom_filter_size;
-    bloomFilter->hash_number = (bloom_filter_size / number_elements) * log(2);;
+    bloomFilter->hash_number = (int) ((bloom_filter_size / number_elements) * log(2));;
 
     return bloomFilter;
 }
@@ -28,16 +29,18 @@ void insert(int hash_count, char *word, int dict[], int bloom_size) {
         set_bit(dict, hash(word, i, bloom_size));
     }
 }
+
 // Set the bit at the k-th position in A[i]
 void set_bit(int A[], int k) {
     A[k / int_t] |= 1 << (k % int_t);
 }
+
 // Test the bit at the k-th position in A[i]
 int test_bit(int A[], int k) {
     return ((A[k / int_t] & (1 << (k % int_t))) != 0);
 }
 
-bool contains(int hash_count, char *word, int dict[], int bloom_size) {
+int contains(int hash_count, char *word, int dict[], int bloom_size) {
     for (int i = 0; i < hash_count; i++) {
         if (test_bit(dict, hash(word, i, bloom_size)) != 1) {
             return false;
