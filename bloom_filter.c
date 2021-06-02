@@ -7,7 +7,7 @@
 #define int_t sizeof(int) * 8 // for bits of type int in different systems
 
 bloom_filter_t *bloom_filter_create(int number_elements, double prob_error) {
-    long bloom_filter_size = (long) ((double) (number_elements) * log(prob_error) / (log(2) * log(2)) * -1);
+    size_t bloom_filter_size = (size_t) ((double) (number_elements) * log(prob_error) / (log(2) * log(2)) * -1);
     bloom_filter_t *bloomFilter = malloc(sizeof(bloom_filter_t));
     bloomFilter->dictionary = calloc((size_t) bloom_filter_size, sizeof(int));
     bloomFilter->length = bloom_filter_size;
@@ -40,9 +40,9 @@ int test_bit(int A[], int k) {
     return ((A[k / int_t] & (1 << (k % int_t))) != 0);
 }
 
-int contains(int hash_count, char *word, int dict[], int bloom_size) {
+bool contains(int hash_count, char *word, int dict[], int bloom_size) {
     for (int i = 0; i < hash_count; i++) {
-        if (test_bit(dict, hash(word, i, bloom_size)) != 1) {
+        if (!test_bit(dict, hash(word, i, bloom_size))) {
             return false;
         }
     }

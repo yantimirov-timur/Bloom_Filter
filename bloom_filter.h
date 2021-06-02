@@ -8,12 +8,13 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 
 typedef struct bloom_filter {
     int hash_number;
     int *dictionary;
-    long length;
+    size_t length;
 } bloom_filter_t;
 
 bloom_filter_t *bloom_filter_create(int number_elements, double prob_error);
@@ -26,7 +27,7 @@ int test_bit(int A[], int k);
 
 void insert(int hash_count, char *word, int dict[], int bloom_size);
 
-int contains(int hash_count, char *word, int dict[], int bloom_size);
+bool contains(int hash_count, char *word, int dict[], int bloom_size);
 
 
 #endif //BLOOM_FILTER_EXEC_BLOOM_FILTER_H

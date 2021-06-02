@@ -5,7 +5,7 @@
 #ifndef BLOOM_FILTER_EXEC_TEST_H
 #define BLOOM_FILTER_EXEC_TEST_H
 
-void assert_true(int result);
+void assert_true(bool result);
 
 void run_tests();
 

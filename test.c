@@ -4,7 +4,7 @@
 #include "bloom_filter.h"
 #include <stdio.h>
 
-void assert_true(int result) {
+void assert_true(bool result) {
     if (result == 1) {
         printf("Test passed");
     } else {
@@ -20,8 +20,8 @@ void test1() {
     for (int i = 0; i < num_elements; i++) {
         insert(bf->hash_number, test_words[i], bf->dictionary, bf->length);
     }
-    int exist = contains(bf->hash_number, "w", bf->dictionary, bf->length);
-    int exist1 = contains(bf->hash_number, "abc", bf->dictionary, bf->length);
+    bool exist = contains(bf->hash_number, "w", bf->dictionary, bf->length);
+    bool exist1 = contains(bf->hash_number, "abc", bf->dictionary, bf->length);
     assert_true(!exist);
     printf("\n");
     assert_true(exist1);
@@ -36,8 +36,8 @@ void test2() {
     for (int i = 0; i < num_elements; i++) {
         insert(bf->hash_number, test_numbers[i], bf->dictionary, bf->length);
     }
-    int exist = contains(bf->hash_number, "9", bf->dictionary, bf->length);
-    int exist1 = contains(bf->hash_number, "2", bf->dictionary, bf->length);
+    bool exist = contains(bf->hash_number, "9", bf->dictionary, bf->length);
+    bool exist1 = contains(bf->hash_number, "2", bf->dictionary, bf->length);
     printf("\n");
     assert_true(!exist);
     printf("\n");
