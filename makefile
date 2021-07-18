@@ -6,10 +6,10 @@ bf: main.o bloom_filter.o test.o mylib.a
 main.o: main.c
 	gcc -O -c main.c
 
-test.o: test.c test.h
+test.o: test/test.c test/test.h
 	gcc -O -c test.c test.h
 
-bloom_filter.o: bloom_filter.c bloom_filter.h
+bloom_filter.o: bloom_filter/bloom_filter.c bloom_filter/bloom_filter.h
 	gcc -c bloom_filter.c bloom_filter.h
 
 mylib.a: bloom_filter.o

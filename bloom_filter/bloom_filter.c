@@ -4,7 +4,7 @@
 #include "bloom_filter.h"
 #include <math.h>
 
-#define int_t sizeof(int) * 8 // for bits of type int in different systems
+#define int_t (sizeof(int) * 8) // for bits of type int in different systems
 
 bloom_filter_t *bloom_filter_create(int number_elements, double prob_error) {
     size_t bloom_filter_size = (size_t) ((double) (number_elements) * log(prob_error) / (log(2) * log(2)) * -1);

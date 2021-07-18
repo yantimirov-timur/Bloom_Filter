@@ -1,7 +1,7 @@
 //
 // Created by TimurYantimirov on 11.05.2021.
 //
-#include "bloom_filter.h"
+#include "../bloom_filter/bloom_filter.h"
 #include <stdio.h>
 
 void assert_true(bool result) {

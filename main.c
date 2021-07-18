@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "bloom_filter.h"
-#include "test.h"
+#include "bloom_filter/bloom_filter.h"
+#include "test/test.h"
 
 
 /**
